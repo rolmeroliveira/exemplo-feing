@@ -1,0 +1,22 @@
+feign:
+  client:
+    config:
+      abacaxi:
+        url: localhost:9090
+        connectTimeout: 1000
+        readTimeout: 1000
+        loggerLevel: full
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      produtos:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: TIME_BASED
+        minimumNumberOfCalls: 20
+        waitDurationInOpenState: 50s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordFailurePredicate: io.github.robwin.exception.RecordFailurePredicate
